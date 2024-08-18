@@ -166,14 +166,17 @@ position_vs_fouls = px.bar(
 #we can use seaborn to create the heatmap, and also use matplotlib a little bit.
 #before we create the heatmap, we can't create a correlation matrix if we have columns that don't contain numbers. So take those columns out and 
 #define a new dataframe to use for this graph.
+
 df_for_heatmap = df_modified.drop(['Name', 'Country', 'Position', 'Team'], axis = 1, inplace = False)
 
 #then use seaborn to create the heatmap.
+#however we still need to use matplotlib to create the heatmap.
 heatmap = sns.heatmap(df_for_heatmap, cmap = "coolwarm", annot = True)
 
 column3, column4 = st.columns(2)
 column3.plotly_chart(position_vs_fouls, use_container_width=True)
-column4.plotly_chart(heatmap, use_container_width=True )
+#right now this line does not work and produces an error. Comment it out.
+#column4.plotly_chart(heatmap, use_container_width=True )
 
 
 
