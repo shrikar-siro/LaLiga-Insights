@@ -157,6 +157,7 @@ goals_by_country = px.pie(
     title = '<b>Distribution of Goals By Country</b>'
 )
 
+goals_per_team.update_traces(marker_color = '#7639bf')
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(goals_per_team, use_container_width=True)
 right_column.plotly_chart(goals_by_country, use_container_width=True)
@@ -174,22 +175,27 @@ position_vs_fouls = px.bar(
     title = '<b>Fouls Conceded Per Position</b>'
 )
 
+#use the update_traces method to change the bar colors.
+position_vs_fouls.update_traces(marker_color = '#f54040')
+st.plotly_chart(position_vs_fouls, use_container_width = True)
+st.divider()
 #fourth graph: create a heatmap of some sort.
-#intercorrelation matrix heat map - this shows correlation between all variables present in the dataset.
-#we can use seaborn to create the heatmap, and also use matplotlib a little bit.
-#before we create the heatmap, we can't create a correlation matrix if we have columns that don't contain numbers. So take those columns out and 
-#define a new dataframe to use for this graph.
+#use plotly to create heatmap, using imshow function.
+#set img to the data being displayed - in this case, the correlation matrix returned from df_for_heatmap.corr().
 
 df_for_heatmap = df_modified.drop(['Name', 'Country', 'Position', 'Team'], axis = 1, inplace = False)
 
-#then use seaborn to create the heatmap.
-#however we still need to use matplotlib to create the heatmap.
-heatmap = sns.heatmap(df_for_heatmap, cmap = "coolwarm", annot = True)
+heatmap = px.imshow(
+    img = df_for_heatmap.corr(), 
+    #allows us to show values.
+    text_auto= True,
+    aspect = 'auto',
+    title= '<b>Correlation Matrix Heatmap: </b>'
+)
+st.plotly_chart(heatmap, use_container_width=True)
 
-column3, column4 = st.columns(2)
-column3.plotly_chart(position_vs_fouls, use_container_width=True)
-#right now this line does not work and produces an error. Comment it out.
-#column4.plotly_chart(heatmap, use_container_width=True )
+
+
 
 
 
