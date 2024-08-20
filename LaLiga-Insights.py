@@ -28,25 +28,38 @@ st.sidebar.header('User-Defined Parameters')
 df.rename(columns = {'Yellow Cards': 'Yellow_Cards', 'Total Passes':'Total_Passes'}, inplace = True)
 df.rename(columns = {'Time Played (min)': 'Time_Played_(min)', 'Fouls Conceded':'Fouls_Conceded'}, inplace = True)
 
+#due to the "NONE" option for country, team, and position parameters, we create 3 new lists that do not contain that option.
+#this is so the user will not be able to choose "NONE" for any of the parameters.
+#we also remove the players with "NONE" data from the dataset.
+countryList = df['Country'].unique()
+countryList = np.delete(countryList, np.where(countryList == 'NONE')[0][0])
+
+teamList = df['Team'].unique()
+teamList = np.delete(teamList, np.where(teamList == 'NONE')[0][0])
+
+posList = df['Position'].unique()
+posList = np.delete(posList, np.where(posList == 'NONE')[0][0])
+
+
 countryBar = st.sidebar.multiselect(
     "Country:",
     #first parameter is giving a label.
     #to specify the options, we can use the column titled "Country" in our dataframe.
-    options = df['Country'].unique(),
+    options = countryList,
     #the default can be set to all of the countries, showing all the players.
-    default = df['Country'].unique()
+    default = countryList
 )
 #second sidebar - choose a team to narrow down players
 teamBar = st.sidebar.multiselect(
     "Team:",
-    options = df['Team'].unique(),
-    default = df['Team'].unique()
+    options = teamList, 
+    default = teamList
 )
 #third sidebar - choose a position to narrow down players.
 positionBar = st.sidebar.multiselect(
     "Position:",
-    options = df['Position'].unique(),
-    default = df['Position'].unique()
+    options = posList,
+    default = posList
 )
 
 
