@@ -4,7 +4,10 @@ import streamlit as st
 import pandas as pd
 #we will also use plotly.
 import plotly.express as px
+import numpy as np
 import seaborn as sns
+
+
 #use the read_csv function to read in the csv file containing our data.
 df = pd.read_csv('C:/Users/17739/Documents/Streamlit/LaLiga_Stats.csv', header = 0)
 #we can think about caching our data later - it helps with loading times.
