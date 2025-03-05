@@ -9,7 +9,7 @@ import seaborn as sns
 
 
 #use the read_csv function to read in the csv file containing our data.
-df = pd.read_csv('C:/Users/17739/Documents/Streamlit/LaLiga_Stats.csv', header = 0)
+df = pd.read_csv('LaLiga_Stats.csv', header = 0)
 #we can think about caching our data later - it helps with loading times.
 
 #set the page config to configure width of app, logo, etc.
